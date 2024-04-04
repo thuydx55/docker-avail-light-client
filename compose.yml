@@ -1,0 +1,12 @@
+services:
+  avail:
+    image: 0xtedd/avail-light-client
+    restart: always
+    volumes:
+      - "./data:/root/.avail"
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(curl -s http://localhost:7000/v1/status | jq -r '.block_num') != '' ]" ]
+      interval: 2s
+      timeout: 5s
+      retries: 3
+      start_period: 100s
